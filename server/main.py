@@ -6,10 +6,16 @@ from pydantic import BaseModel
 from helpers import filter_players_from_ids
 
 
-class Players(BaseModel):
+class Game(BaseModel):
+    id: int
+    pot: int
+
+
+class Player(BaseModel):
     id: int
     name: str
     pot: int
+
 
 class AddGamesParams(BaseModel):
     player_ids: List[int]
@@ -31,7 +37,7 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/games/")
+@app.get("/games")
 async def get_games():
     return {
         'status': 'ok',
@@ -39,7 +45,7 @@ async def get_games():
     }
 
 
-@app.get("/players/")
+@app.get("/players")
 async def get_players():
     return {
         'status': 'ok',
@@ -47,10 +53,23 @@ async def get_players():
     }
 
 
-@app.post('/games/')
+@app.post('/games')
 async def add_game(params: AddGamesParams):
     return {'status': 'ok'}
+#     params_dict = params.dict()
+#
+#     # Getting the current date and time
+#     dt = datetime.now()
+#
+#     # getting the timestamp
+#     ts = datetime.timestamp(dt)
+#
+#     new_game = {id: ts, 'players': filter_players_from_ids(params_dict['player_ids'], players)}
+#     games.append(new_game)
+#
+#     return {'status': 'ok', 'games': games}
 
-@app.post("/players/")
+
+@app.post("/players")
 async def add_players():
     return {'status': 'ok'}
