@@ -55,19 +55,18 @@ async def get_players():
 
 @app.post('/games')
 async def add_game(params: AddGamesParams):
-    return {'status': 'ok'}
-#     params_dict = params.dict()
-#
-#     # Getting the current date and time
-#     dt = datetime.now()
-#
-#     # getting the timestamp
-#     ts = datetime.timestamp(dt)
-#
-#     new_game = {id: ts, 'players': filter_players_from_ids(params_dict['player_ids'], players)}
-#     games.append(new_game)
-#
-#     return {'status': 'ok', 'games': games}
+    params_dict = params.dict()
+
+    # Getting the current date and time
+    dt = datetime.now()
+
+    # getting the timestamp
+    ts = datetime.timestamp(dt)
+
+    new_game = {'id': ts, 'players': filter_players_from_ids(params_dict['player_ids'], players)}
+    games.append(new_game)
+
+    return {'status': 'ok', 'games': games}
 
 
 @app.post("/players")
