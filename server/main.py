@@ -70,5 +70,26 @@ async def add_game(params: AddGamesParams):
 
 
 @app.post("/players")
-async def add_players():
-    return {'status': 'ok'}
+async def add_players(params):
+    params_dict = params.dict()
+
+    players.append({
+        'id': 2,
+        'name': params_dict['name'],
+        'pot': 0
+    })
+
+    return {'status': 'ok', 'players': players}
+
+
+# Player wins the round
+@app.post("/player/wins")
+async def player_wins_round():
+    # 1. Transfer round pot to player
+    pass
+
+# TODO: Player raises
+# TODO: Player matches
+
+# TODO: Player does an all in
+# /player/all-in
